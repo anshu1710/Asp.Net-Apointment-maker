@@ -1,0 +1,54 @@
+﻿@model IEnumerable<CounsleSystem.Models.CounselRequest>
+
+@{
+     
+    ViewBag.Title = "Index";
+}
+
+<h2>Admin</h2>
+@Html.ActionLink("Logout", "Logout", "Counsel")
+ 
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.studentid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isaccept)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.updatedby)
+        </th>
+    </tr> 
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.studentid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date, new { type = "date" })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.time, new { type = "time" })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isaccept)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.updatedby)
+        </td>
+    </tr>
+}
+</table>

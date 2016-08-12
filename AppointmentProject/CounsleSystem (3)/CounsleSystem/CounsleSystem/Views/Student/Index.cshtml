@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<script src="~/Scripts/jquery-1.9.1.js"></script>
+<script src="~/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.min.js"></script>
+<link href="~/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<div id="mainContent">
+    <section class="container">
+
+        <div class="innerContainer">
+
+            <div class="row">
+                <div id="myWizard" class="formArea LRmargin">
+                    @using (Html.BeginForm())
+                    {
+
+
+                        @Html.ActionLink("Logout", "Logout", "Counsel")
+                        <div class="col-md-4 col-md-offset-4 col-xs-12">
+                            <div class="loginPage panel panel-info">
+                                <div class="form-group">
+                                    <span class=""><i class="glyphicon glyphicon-user"></i> Please choose your prefered date:</span>
+                                    <input type="date" class="form-control" id="date" value="09-08-2016" />
+                                     @*@Html.TextBoxFor(m => m.date, new { typetype = "date" , @class = "form-control"})*@
+                                    
+
+                                </div>
+                                <div class="form-group">
+                                    <span class=""><i class="glyphicon glyphicon-lock"></i> Please choose your prefered time:</span>
+                                    <input type="time" class="form-control" id="time" value="02:00:00" />
+                                    @*@Html.TextBoxFor(m => m.time , new { typetype = "time", @class = "form-control" })*@
+
+                                </div>
+                                <div class="form-group">
+                                    
+                                    <input type="checkbox" name="chk"  id="chk"  /> <span class=""><i class="glyphicon glyphicon-lock"></i> Click to add Text</span>
+                                    <textarea   rows="4" cols="50" id="txtBlock"  style="visibility:hidden">  </textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input id="BtnSubmit" type="button" class="btn btn-success btn-pressure" name="BtnSubmit" value="Submit"  onclick="Create()"/>
+                                    
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+
+                                $('#chk').change(function () {
+                                    if (this.checked) {
+                                        $('#txtBlock').css('visibility', 'visible');
+                                        
+                                    }
+                                    else {
+                                        $('#txtBlock').css('visibility', 'hidden');
+                                       
+                                    }
+                                });
+
+
+                               
+                            });
+                            function Create() {
+                                $.ajax({
+                                    url: '/Student/Create',
+                                    dataType: "json",
+                                    type: "POST",
+                                    contentType: 'application/json; charset=utf-8',
+                                    data: JSON.stringify({ Date: $('#date').val(), time: $('#time').val() }),
+                                      
+                                    success: function (data) {
+                                        $("#date").prop("disabled", true);
+                                        $("#time").prop("disabled", true);
+                                        $("#chk").prop("disabled", true);
+                                        $("#txtBlock").prop("disabled", true);
+                                        $("#BtnSubmit").prop("disabled", true);
+                                        alert('Submited Successfully');
+                                    },
+                                    error: function (xhr) {
+                                        $("#date").prop("disabled", true);
+                                        $("#time").prop("disabled", true);
+                                        $("#chk").prop("disabled", true);
+                                        $("#txtBlock").prop("disabled", true);
+                                        $("#BtnSubmit").prop("disabled", true);
+                                        alert('Submited Successfully');
+                                    }
+                                })
+                            }
+                        </script>
+
+
+
+
+                    }
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
